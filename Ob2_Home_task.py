@@ -7,7 +7,7 @@
 class Users():
 # Этот класс должен инкапсулировать данные :
 # ID, имя и уровень доступа ('user' для обычных сотрудников).
-  def __init__(self, name, ID, level):
+  def __init__(self, name, ID, level ='user'):
     self.name = name
     self.ID = ID
     self.level = level
@@ -20,25 +20,28 @@ class Users():
 
 
 class Admin(Users):
-  def __init__(self,name,ID, level, status ="admin"):
+  def __init__(self,name,ID, level="admin"):
       super().__init__(name, ID, level)  # Вызов конструктора родительского класса
-      self.users = {}  # Словарь для хранения пользователей
+      self.user = {}  # Словарь для хранения пользователей
 
-  def add_user(self,name,ID,level):
-      new_user = User(name, ID, level)  # Создаем нового пользователя
-      self.users[new_user.ID] = new_user  # Сохраняем пользователя в словаре
+  def add_user(self,name,ID,level = 'user'):
+      new_user = Users(name, ID, level)  # Создаем нового пользователя
+      self.user[new_user.ID] = new_user  # Сохраняем пользователя в словаре
 
-  def remove_user(self, id):
-      if ID in self.users:
-          self.users.pop(ID)  # Удаляем пользователя по ID
+  def remove_user(self, ID):
+      if ID in self.user:
+          self.user.pop(ID)  # Удаляем пользователя по ID
           print(f'Пользователь "{ID}" удален.')
       else:
           print(f'Пользователь "{ID}" не найден.')
 
 
-admin1 = Admin('Петя',1, 0, status ="admin")
-admin2 = Admin('Слава',2, 0, status ="admin")
+admin1 = Admin('Петя', 1)
+admin2 = Admin('Слава', 2)
+print( admin1.info)
 
-admin1.add_user('Анна',3,1)
-admin1.add_user('Мелисса',3,1)
-admin1.info()
+admin1.add_user('Анна', 3, 1)
+admin1.add_user('Мелисса', 4, 1)
+
+admin1.remove_user(3)  # Удаляем пользователя Анна
+admin1.remove_user(5)  # Пытаемся удалить несуществующего пользователя
