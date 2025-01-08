@@ -11,7 +11,7 @@ class Users():
     self.name = name
     self.ID = ID
     self.level = level
-    self.user ={}
+
 
   def info(self):
     print (f"{self.name} - имя")
@@ -21,16 +21,20 @@ class Users():
 
 class Admin(Users):
   def __init__(self,name,ID, level, status ="admin"):
-    self.user ={}
+      super().__init__(name, ID, level)  # Вызов конструктора родительского класса
+      self.users = {}  # Словарь для хранения пользователей
 
   def add_user(self,name,ID,level):
-      self.user.update({name:name, ID:ID,level: level})
+      new_user = User(name, ID, level)  # Создаем нового пользователя
+      self.users[new_user.ID] = new_user  # Сохраняем пользователя в словаре
 
   def remove_user(self, id):
-      if id in self.user.ID:
-          self.user.pop(id)
+      if ID in self.users:
+          self.users.pop(ID)  # Удаляем пользователя по ID
+          print(f'Пользователь "{ID}" удален.')
       else:
-          print(f'пользователь "{id}" не найден.')
+          print(f'Пользователь "{ID}" не найден.')
+
 
 admin1 = Admin('Петя',1, 0, status ="admin")
 admin2 = Admin('Слава',2, 0, status ="admin")
