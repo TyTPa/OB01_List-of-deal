@@ -61,13 +61,13 @@ class Zoo:
 
     def write_file(self):
         with open("zoo_data.txt", "w", encoding="utf-8") as file:
-            file.write("Животные в зоопарке:/n")
+            file.write("Животные в зоопарке:")
             for animal in self.Animals:
-                file.write(f"- {animal.name}, возраст: {animal.age}")
-            file.write("Сотрудники в зоопарке:")
+                file.write(f"\n- {animal.name}, возраст: {animal.age}")
+            file.write("\n Сотрудники в зоопарке:\n")
             for employee in self.Employees:
                 employee_class = type(employee).__name__  # Получаем имя класса сотрудника
-                print(f"- {employee.name}, класс: {employee_class}")
+                file.write(f"- {employee.name}, класс: {employee_class}\n")
 
 # Сотрудники ZOO
 class Employee():
