@@ -44,11 +44,20 @@ class Reptile(Animal):
 
 # Создаем класс без наследования и прописываем как функцию инициализации с характеристиками
 class Zoo:
-    def __init__(self, Animal, Employee):
-       self.Animal =[]
-    def add_animal(self,name,age):
-      new_animal = Animal(name, age)  # Создаем новое животное
-      self.Animal[new_animal.name:age] = new_animal  # Сохраняем пользователя в словаре
+    def __init__(self):
+       self.Animals =[] # Список для хранения животных
+       self.Employees = []  # Список для хранения сотрудников
+    def add_animal(self,name):
+       self.Animals.append (name) # добавляем новое животное
+    def add_employee(self,name):
+       self.Employees.append (name)  # Добавляем нового сотрудника
+    def info(self):
+        print("Животные в зоопарке:")
+        for animal in self.Animals:
+            print(f"- {animal.name}, возраст: {animal.age}")
+        print("Сотрудники в зоопарке:")
+        for employee in self.Employees:
+            print(f"- {employee.name}")
 # Сотрудники ZOO
 class Employee():
     def __init__(self, name):
@@ -56,24 +65,38 @@ class Employee():
 class ZooKeeper (Employee):
      def __init__(self, name):
          super().__init__(name)  # Вызов конструктора родительского класса
-     def feed_animal(self):
-         pass
+     def feed_animal(self,animal):
+         print(f"{self.name} кормит {animal.name}")
 class Veterinarian(Employee):
     def __init__(self, name):
         super().__init__(name)  # Вызов конструктора родительского класса
-
-    def heel_animal(self):
-        pass
+    def heel_animal(self,animal):
+        print(f"{self.name} лечит {animal.name}")
 
 ZOO_animals = [Bird('Parrot',3), Mammal('Tiger',20), Reptile('Varan',5)]
 for animal in ZOO_animals:
     animal.make_sound()
     animal.eat()
 
-zookeeper1 = ZooKeeper("Александр")
 
-#С помощью агрегации передаем сотрудника и животное.
-zoo = Zoo(ZOO_animals,zookeeper1)
-zoo.add_animal(ZOO_animals,10)
-print(ZOO_animals)
-#Добавляем созданный объект класса Сотрудника как объект в класс Zoo. Передаем его через объект класса Zoo:
+zoo= Zoo()
+# Добавляем животных
+zoo.add_animal(Bird('Попугай', 3))
+zoo.add_animal(Mammal('Тигр', 20))
+zoo.add_animal(Reptile('Варан', 5))
+
+# Добавляем сотрудников
+zoo.add_employee(ZooKeeper("Саша"))
+zoo.add_employee(Veterinarian ("Петя"))
+
+# Вызываем звуки животных
+for animal in zoo.Animals:
+    animal.make_sound()
+    animal.eat()
+
+# Выводим информацию о зоопарке
+zoo.info()
+
+# Пример использования методов сотрудников
+zoo.Employees[0].feed_animal(zoo.Animals[0])  # Саша кормит Попугая
+
