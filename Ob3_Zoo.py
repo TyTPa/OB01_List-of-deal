@@ -58,6 +58,16 @@ class Zoo:
         print("Сотрудники в зоопарке:")
         for employee in self.Employees:
             print(f"- {employee.name}")
+
+    def write_file(self):
+        with open("zoo_data.txt", "w", encoding="utf-8") as file:
+            file.write("Животные в зоопарке:/n")
+            for animal in self.Animals:
+                file.write(f"- {animal.name}, возраст: {animal.age}")
+            file.write("Сотрудники в зоопарке:")
+            for employee in self.Employees:
+                file.write(f"- {employee.name}")
+
 # Сотрудники ZOO
 class Employee():
     def __init__(self, name):
@@ -96,7 +106,8 @@ for animal in zoo.Animals:
 
 # Выводим информацию о зоопарке
 zoo.info()
-
-# Пример использования методов сотрудников
+# Записываем данные в файл
+zoo.write_file()
+# Пример использования сотрудников
 zoo.Employees[0].feed_animal(zoo.Animals[0])  # Саша кормит Попугая
 
