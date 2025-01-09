@@ -66,7 +66,8 @@ class Zoo:
                 file.write(f"- {animal.name}, возраст: {animal.age}")
             file.write("Сотрудники в зоопарке:")
             for employee in self.Employees:
-                file.write(f"- {employee.name}")
+                employee_class = type(employee).__name__  # Получаем имя класса сотрудника
+                print(f"- {employee.name}, класс: {employee_class}")
 
 # Сотрудники ZOO
 class Employee():
