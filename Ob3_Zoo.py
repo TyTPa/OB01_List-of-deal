@@ -41,21 +41,24 @@ class Mammal(Animal):
 class Reptile(Animal):
     def make_sound(self):
         print(self.name, 'кричит шшшшш')
+
 # Создаем класс без наследования и прописываем как функцию инициализации с характеристиками
 class Zoo:
     def __init__(self, Animal, Employee):
        self.Animal =[]
-
+    def add_animal(self,name,age):
+      new_animal = Animal(name, age)  # Создаем новое животное
+      self.Animal[new_animal.name:age] = new_animal  # Сохраняем пользователя в словаре
 # Сотрудники ZOO
- class Employee():
+class Employee():
     def __init__(self, name):
         self.name = name
- class ZooKeeper (Employee):
+class ZooKeeper (Employee):
      def __init__(self, name):
          super().__init__(name)  # Вызов конструктора родительского класса
      def feed_animal(self):
          pass
-  class Veterinarian(Employee):
+class Veterinarian(Employee):
     def __init__(self, name):
         super().__init__(name)  # Вызов конструктора родительского класса
 
@@ -71,4 +74,6 @@ zookeeper1 = ZooKeeper("Александр")
 
 #С помощью агрегации передаем сотрудника и животное.
 zoo = Zoo(ZOO_animals,zookeeper1)
+zoo.add_animal(ZOO_animals,10)
+print(ZOO_animals)
 #Добавляем созданный объект класса Сотрудника как объект в класс Zoo. Передаем его через объект класса Zoo:
