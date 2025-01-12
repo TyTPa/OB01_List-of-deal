@@ -6,7 +6,7 @@ import sys
 
 # Константы
 WIDTH, HEIGHT = 800, 600
-WHITE = (255, 34, 255)
+WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 PADDLE_WIDTH, PADDLE_HEIGHT = 10, 100
 BALL_SIZE = 15
@@ -57,6 +57,11 @@ def main():
     right_paddle = Paddle(WIDTH - 40, HEIGHT // 2 - PADDLE_HEIGHT // 2)
     ball = Ball()
 
+    # Счет
+    left_score = 0
+    right_score = 0
+    font = pygame.font.Font(None, 74)
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -80,7 +85,11 @@ def main():
             ball.speed_x = -ball.speed_x
 
         # Проверка выхода за границы
-        if ball.rect.left <= 0 or ball.rect.right >= WIDTH:
+        if ball.rect.left <= 0:
+            right_score += 1  # Правый игрок получает очко
+            ball.reset()
+        if ball.rect.right >= WIDTH:
+            left_score += 1  # Левый игрок получает очко
             ball.reset()
 
         screen.fill(BLACK)
@@ -88,12 +97,15 @@ def main():
         right_paddle.draw(screen)
         ball.draw(screen)
 
+        # Отображение счета
+        score_text = font.render(f"{left_score} : {right_score}", True, WHITE)
+        screen.blit(score_text, (WIDTH // 2 - score_text.get_width() // 2, 20))
+
         pygame.display.flip()
         clock.tick(60)
 
 if __name__ == "__main__":
-    main()
-
+        main()
 ### Как играть:
 #- Игрок слева управляет ракеткой с помощью клавиш W (вверх) и S (вниз).
 #- Игрок справа управляет ракеткой с помощью стрелок вверх и вниз.
