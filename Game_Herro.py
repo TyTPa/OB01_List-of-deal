@@ -20,7 +20,7 @@ class Hero():
         other.health -= self.attack_power
 # Возвращает True, если здоровье героя больше 0, иначе False
     def is_alive(self):
-        if self.health<=0:
+        if self.health>=0:
            life =True
         else:
             life = False
@@ -29,17 +29,15 @@ class Hero():
 class Game():
     def start():
         i=1
-        print(f'раунд',i)
         while p1.is_alive() and p2.is_alive():
             print(f'раунд', i)
             print(f'{p1.name} наносит удар силой {p1.attack_power}')
             p1.attack(p2)
-            print(f'{p2.name} теряет здоровье {p2.health})')
+            print(f'{p2.name} теряет здоровье. Его здоровье становится {p2.health}')
             print(f'{p2.name} наносит удар силой {p2.attack_power}')
             p2.attack(p1)
-            print(f'{p1.name} теряет здоровье {p1.health})')
+            print(f'{p1.name} теперь с уровнем здоровья {p1.health}')
             i+=1
-            print(f'раунд', i)
         if p1.health>p2.health:
             print(f'{p1.name}  победил {p2.name}')
         else:
